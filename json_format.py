@@ -1,4 +1,4 @@
-{
+data = {
     "AF": "Afghanistan",
     "AX": "Aland Islands",
     "AL": "Albania",
@@ -246,3 +246,28 @@
     "ZM": "Zambia",
     "ZW": "Zimbabwe"
 }
+
+from json import dumps
+from os import path
+def config_location_code():
+    file_config = 'location_config.json'
+    if not path.exists(file_config):
+        data_dict = {}
+        id = 0
+        for x in data:
+            id += 1
+            dict = {
+                id: {
+                    "code": x,
+                    "name": data[x]
+                }
+            }
+            
+            data_dict.update(dict)
+
+
+        json_file_content = dumps(data_dict,indent=4)
+        with open(file_config,'w') as f:
+            f.write(json_file_content)
+
+config_location_code()
